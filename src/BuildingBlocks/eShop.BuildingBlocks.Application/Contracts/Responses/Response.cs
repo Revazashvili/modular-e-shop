@@ -1,4 +1,4 @@
-namespace eShop.BuildingBlocks.Application.Contracts.Response;
+namespace eShop.BuildingBlocks.Application.Contracts.Responses;
 
 public class Response<T> : IResponse<T>
 {
