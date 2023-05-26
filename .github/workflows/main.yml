@@ -1,0 +1,33 @@
+name: Publish 🚀
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+
+env:
+  AZURE_WEBAPP_NAME: modular-e-shop-api
+  AZURE_WEBAPP_PACKAGE_PATH: "./publish"
+  SOLUTION_PATH: ./src/eShop.sln
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+          
+      - name: Restore
+        run: dotnet restore ${{ env.SOLUTION_PATH }}
+        
+      - name: Build
+        run: dotnet build ${{ env.SOLUTION_PATH }} --configuration Release --no-restore
+        
+      - name: Publish
+        run: dotnet publish ${{ env.SOLUTION_PATH }} --configuration Release --no-build --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
