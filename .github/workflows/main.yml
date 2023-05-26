@@ -7,9 +7,9 @@ on:
     - main
 
 env:
-  AZURE_WEBAPP_NAME: modular-e-shop-api
-  AZURE_WEBAPP_PACKAGE_PATH: "./publish"
-  SOLUTION_PATH: ./src/eShop.sln
+  AZURE_WEBAPP_NAME: modular-e-shop-api # Web App Name
+  AZURE_WEBAPP_PACKAGE_PATH: "./publish" # path to pablish directory
+  SOLUTION_PATH: ./src/eShop.sln # path to solution
 
 jobs:
   publish:
@@ -21,7 +21,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.0.x'
+          dotnet-version: '7.0.x' # change version here
           
       - name: Restore
         run: dotnet restore ${{ env.SOLUTION_PATH }}
@@ -36,5 +36,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }} # stored in repository secrets
           package: "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
