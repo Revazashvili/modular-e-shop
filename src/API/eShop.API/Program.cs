@@ -16,4 +16,6 @@ app.MapGet("/", context =>
     return Task.CompletedTask;
 });
 
+app.MapGet("/ping", () => "pong");
+
 await app.RunAsync();
