@@ -1,14 +1,15 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["API/eShop.API/eShop.API.csproj", "API/eShop.API/"]
-RUN dotnet restore "API/eShop.API/eShop.API.csproj"
+COPY ./API/eShop.API/eShop.API.csproj .
+RUN dotnet restore "eShop.API.csproj"
+
 COPY . .
-WORKDIR "/src/API/eShop.API"
+
 RUN dotnet build "eShop.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
